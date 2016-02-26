@@ -425,19 +425,19 @@
       }
     },
     "node-schedule": {
-      "version": "0.2.1",
-      "from": "https://registry.npmjs.org/node-schedule/-/node-schedule-0.2.1.tgz",
-      "resolved": "https://registry.npmjs.org/node-schedule/-/node-schedule-0.2.1.tgz",
+      "version": "1.0.0",
+      "from": "node-schedule@",
+      "resolved": "https://registry.npmjs.org/node-schedule/-/node-schedule-1.0.0.tgz",
       "dependencies": {
         "cron-parser": {
-          "version": "0.6.1",
-          "from": "https://registry.npmjs.org/cron-parser/-/cron-parser-0.6.1.tgz",
-          "resolved": "https://registry.npmjs.org/cron-parser/-/cron-parser-0.6.1.tgz"
+          "version": "1.1.0",
+          "from": "cron-parser@1.1.0",
+          "resolved": "https://registry.npmjs.org/cron-parser/-/cron-parser-1.1.0.tgz"
         },
         "long-timeout": {
-          "version": "0.0.1",
-          "from": "https://registry.npmjs.org/long-timeout/-/long-timeout-0.0.1.tgz",
-          "resolved": "https://registry.npmjs.org/long-timeout/-/long-timeout-0.0.1.tgz"
+          "version": "0.0.2",
+          "from": "long-timeout@0.0.2",
+          "resolved": "https://registry.npmjs.org/long-timeout/-/long-timeout-0.0.2.tgz"
         }
       }
     }
