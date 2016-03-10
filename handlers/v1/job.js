@@ -15,6 +15,15 @@ module.exports = {
         });
     },
 
+    update: function(req, res, next){
+        tide_scheduler.update_job(req.params.job, req.body, function(err){
+            if(err)
+                res.sendStatus(err.code);
+            else
+                res.sendStatus(200);
+        });
+    },
+
     delete: function(req, res, next){
         tide_scheduler.remove_job(req.params.job, function(){
             res.sendStatus(204);
