@@ -6,7 +6,7 @@
 [![Build Status](https://drone.containership.io/api/badges/containership/containership.plugin.tide/status.svg)](https://drone.containership.io/containership/containership.plugin.tide)
 
 ### Description
-A cron-like job scheduler for ContainerShip.
+A cron-like job scheduler for [ContainerShip](https://github.com/containership/containership)
 
 ### Author
 ContainerShip Developers - developers@containership.io
