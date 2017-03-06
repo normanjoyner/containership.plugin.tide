@@ -1,30 +1,33 @@
-var _ = require("lodash");
-var ContainershipPlugin = require("containership.plugin");
-var tide_scheduler = require([__dirname, "lib", "tide-scheduler"].join("/"));
-var routes = require([__dirname, "lib", "routes"].join("/"));
-var cli = require([__dirname, "lib", "cli"].join("/"));
-var request = require([__dirname, "lib", "request"].join("/"));
-var nomnom = require("nomnom");
+'use strict';
+
+const cli = require('./lib/cli');
+const request = require('./lib/request');
+const routes = require('./lib/routes');
+const tide_scheduler = require('./lib/tide-scheduler');
+
+const _ = require('lodash');
+const ContainershipPlugin = require('containership.plugin');
+const nomnom = require('nomnom');
+
+const APPLICATION_NAME = 'tide-scheduler';
 
 module.exports = new ContainershipPlugin({
-    type: ["core", "cli"],
-    name: "tide",
+    type: ['core', 'cli'],
+    name: 'tide',
 
-    initialize: function(core){
-        if(_.has(core, "logger")){
-            if(core.options.mode == "leader"){
-                // register tide logger
-                core.logger.register("tide-scheduler");
+    runFollower: function(core) {
+        core.loggers[APPLICATION_NAME].log('verbose', `${APPLICATION_NAME} does not run on follower nodes.`);
+    },
 
-                // initialize tide scheduler
-                tide_scheduler.initialize(core);
+    runLeader: function(core) {
+        if(_.has(core, 'logger')){
+            // initialize tide scheduler
+            tide_scheduler.initialize(core);
 
-                // initialize routes
-                routes.initialize(core);
-            }
-        }
-        else{
-            request.config = this.get_config("cli");
+            // initialize routes
+            routes.initialize(core);
+        } else {
+            request.config = this.get_config('cli');
 
             var commands = _.map(cli, function(configuration, command){
                 configuration.name = command;
@@ -33,6 +36,20 @@ module.exports = new ContainershipPlugin({
 
             return { commands: commands };
         }
+    },
+
+    initialize: function(core){
+        if(_.has(core, 'logger')){
+            // register tide logger
+            core.logger.register(APPLICATION_NAME);
+        }
+
+
+        if(core.options.mode === 'leader'){
+            return module.exports.runLeader(core);
+        }
+
+        return module.exports.runFollower(core);
     },
 
     reload: function(){
